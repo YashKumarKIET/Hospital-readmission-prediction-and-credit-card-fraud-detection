@@ -1,48 +1,36 @@
-# Machine Learning Case Studies
+# Case Study 2: Credit Card Fraud Detection
 
-This repository contains two machine-learning case studies.
+## Objective
+Detect fraudulent credit-card transactions in a heavily imbalanced dataset.
 
-## 1. Hospital Readmission Prediction
-- Logistic Regression
-- L2 regularization
-- Patient-record features
+## Method
+An **XGBoost** binary classifier is trained. **SMOTE** is applied only to the training data to reduce class imbalance without leaking information from the test set.
+
+## Threshold Tuning
+Instead of automatically using 0.50, multiple decision thresholds are tested. The demonstration selects the threshold with the highest F1 score. For a real deployment, the threshold should be selected using a validation set and business fraud-loss costs.
+
+## Evaluation
+The project reports:
 - ROC-AUC
+- PR-AUC
+- Precision
+- Recall
+- F1-score
 - Confusion matrix
-- Clinical false-negative vs false-positive discussion
-
-## 2. Credit Card Fraud Detection
-- XGBoost
-- Imbalanced transaction data
-- SMOTE
-- Decision-threshold tuning
-- ROC-AUC and PR-AUC
-- Precision, recall and F1
 - Feature importance
 
-## Installation
+## Important Note
+The feature-importance plot shows model contribution/importance, not causation.
 
-Python 3.10+ is recommended.
-
-Install the dependencies for each case study:
-
+## Running
 ```bash
-cd case_study_1_hospital
-pip install -r requirements.txt
-python hospital_readmission.py
-```
-
-and:
-
-```bash
-cd ../case_study_2_fraud
 pip install -r requirements.txt
 python fraud_detection.py
 ```
 
-Both scripts include a synthetic demonstration dataset so they can be run immediately. For a real project, provide the dataset using `--data`.
+For a dataset:
+```bash
+python fraud_detection.py --data your_transactions.csv
+```
 
-## Dataset Safety
-Do not upload private patient records, personally identifiable information, payment information, or other sensitive data to a public GitHub repository.
-
-## Disclaimer
-These examples are educational machine-learning projects. The hospital model is not a clinical decision-making system, and the fraud model is not a production financial-security system.
+The target column should be `Class` or `is_fraud`.
